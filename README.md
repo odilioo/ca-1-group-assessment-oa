@@ -78,10 +78,7 @@ Added: FoodItem{name='Burger', produced=2025-10-24, bestBefore=2025-10-30}
 
 <<<<<<< HEAD
 
-## 💡  AI Usage Declaration:
-
--AI tools such as ChatGPT were used to help clarify Java concepts, improve documentation structure, and assist with code formatting.
-All final code, testing, and debugging decisions were made by the project authors (Odilio de Oliveira and Aline Aparecida).
+l code, testing, and debugging decisions were made by the project authors (Odilio de Oliveira and Aline Aparecida).
 =======
 ## 🧠 Time Complexity
 | Operation | Complexity | Explanation |
