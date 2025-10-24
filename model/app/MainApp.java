@@ -17,7 +17,7 @@ public class MainApp {
         new MainApp().run();
     }
     private void run() {
-        System.out.println("=== FastFoodFIFO - Console ===");
+        System.out.println("=== FastFoodOA - Menu ===");
         boolean running = true;
         while (running) {
             printMenu();
@@ -47,9 +47,9 @@ public class MainApp {
 
     private void printMenu() {
         System.out.println();
-        System.out.println("1) Add item (enqueue)");
-        System.out.println("2) Remove item (dequeue)");
-        System.out.println("3) View next item (peek)");
+        System.out.println("1) Add item"); /*Enqueue*/
+        System.out.println("2) Remove item"); /*Dequeue*/
+        System.out.println("3) View next item"); /*Peek*/
         System.out.println("4) List all items");
         System.out.println("5) Exit");
         System.out.print("Choose: ");
@@ -65,7 +65,7 @@ public class MainApp {
             String name = scanner.nextLine().trim();
             System.out.print("Production date (YYYY-MM-DD): ");
             LocalDate prod = LocalDate.parse(scanner.nextLine().trim());
-            System.out.print("Best-before date (YYYY-MM-DD): ");
+            System.out.print("Best before date (YYYY-MM-DD): ");
             LocalDate best = LocalDate.parse(scanner.nextLine().trim());
             FoodItem item = new FoodItem(name, prod, best);
             storage.enqueue(item);
