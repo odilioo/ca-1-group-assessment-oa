@@ -114,3 +114,4 @@ public class SimpleSwingApp extends JFrame {
         EventQueue.invokeLater(SimpleSwingApp::new);
     }
 }
+}
