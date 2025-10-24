@@ -1,11 +1,9 @@
 package model.ds;
 
-import model.FoodItem;
-
-public interface StorageInterface {
-    void enqueue(FoodItem item);
-    FoodItem dequeue();
-    FoodItem peek();
+public interface StorageInterface<T> {
+    void enqueue(T item);
+    T dequeue();
+    T peek();
     boolean isFull();
     boolean isEmpty();
     int size();

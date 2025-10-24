@@ -1,7 +1,5 @@
 package model.ds;
 
-import model.FoodItem;
-
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
@@ -10,8 +8,8 @@ import java.util.stream.Collectors;
 /**
  * FIFO implementation using LinkedList with limited capacity.
  */
-public class QueueStorage implements StorageInterface {
-    private final Queue<FoodItem> queue;
+public class QueueStorage<T> implements StorageInterface<T> {
+    private final Queue<T> queue;
     private final int capacity;
 
     public QueueStorage(int capacity) {
@@ -25,22 +23,22 @@ public class QueueStorage implements StorageInterface {
     }
 
     @Override
-    public synchronized void enqueue(FoodItem item) {
+    public synchronized void enqueue(T item) {
         if (item == null) throw new IllegalArgumentException("Item cannot be null");
         if (isFull()) throw new IllegalStateException("Storage is full");
         queue.add(item);
     }
 
     @Override
-    public synchronized FoodItem dequeue() {
-        FoodItem it = queue.poll();
+    public synchronized T dequeue() {
+        T it = queue.poll();
         if (it == null) throw new NoSuchElementException("Storage is empty");
         return it;
     }
 
     @Override
-    public synchronized FoodItem peek() {
-        FoodItem it = queue.peek();
+    public synchronized T peek() {
+        T it = queue.peek();
         if (it == null) throw new NoSuchElementException("Storage is empty");
         return it;
     }

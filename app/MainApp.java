@@ -2,7 +2,7 @@ package app;
 
 import ds.QueueStorage;
 import ds.StorageInterface;
-import model.FoodItem;
+import model.ds.FoodItem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -68,12 +68,18 @@ public class MainApp {
             System.out.print("Item name: ");
             String name = scanner.nextLine().trim();
             System.out.print("Item weight (grams): ");
-            double weight = Double.parseDouble(scanner.nextLine().trim());
-            System.out.print("Production date (YYYY-MM-DD): ");
-            LocalDate prod = LocalDate.parse(scanner.nextLine().trim());
+            double weight;
+            try {
+                weight = Double.parseDouble(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid weight. Please enter a number.");
+                return;
+            }
+            LocalDate prod = LocalDate.now();
+            System.out.println("Production date automatically set to: " + prod);
             System.out.print("Best-before date (YYYY-MM-DD): ");
             LocalDate best = LocalDate.parse(scanner.nextLine().trim());
-            FoodItem item = new FoodItem(name, weight, prod, best);
+            FoodItem item = new FoodItem(name, weight, best);
             storage.enqueue(item);
             System.out.println("Added: " + item);
         } catch (DateTimeParseException e) {
@@ -124,6 +130,4 @@ public class MainApp {
             System.out.println("No matching food found.");
         }
     }
-}
-
 }
