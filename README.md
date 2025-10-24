@@ -52,18 +52,20 @@ java app.SimpleSwingApp
 
 ## 📦 Example Usage (Console)
 ```
-=== FastFoodFIFO - Console ===
-1) Add item (enqueue)
-2) Remove item (dequeue)
-3) View next item (peek)
+=== FastFoodFIFO - Menu ===
+1) Add item 
+2) Remove item
+3) View next item
 4) List all items
-5) Exit
+5) Search item by name
+6) Exit
 
 Choose: 1
 Item name: Burger
-Production date (YYYY-MM-DD): 2025-10-24
-Best-before date (YYYY-MM-DD): 2025-10-30
-Added: FoodItem{name='Burger', produced=2025-10-24, bestBefore=2025-10-30}
+Item weight (grams): 200
+Production date automatically set to: 2025-10-24
+Best before date (YYYY-MM-DD): 2025-10-31
+Added: Burger (weight: 200,00 g, produced: 2025-10-24, best before: 2025-10-31, placed: 2025-10-24T23:06:47.554884400)
 ```
 
 ## 💡 Concepts Demonstrated
@@ -75,4 +77,4 @@ Added: FoodItem{name='Burger', produced=2025-10-24, bestBefore=2025-10-30}
 
 ## 👥 Authors
 - **Odilio de Oliveira**
-- **Aline Aparecida**
+- **Aline de Oliveira**

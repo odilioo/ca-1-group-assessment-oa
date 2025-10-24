@@ -50,9 +50,9 @@ public class MainApp {
 
     private void printMenu() {
         System.out.println();
-        System.out.println("1) Add item (enqueue)"); /*Enqueue*/
-        System.out.println("2) Remove item (dequeue)"); /*Dequeue*/
-        System.out.println("3) View next item (peek)"); /*Peek*/
+        System.out.println("1) Add item"); /*Enqueue*/
+        System.out.println("2) Remove item"); /*Dequeue*/
+        System.out.println("3) View next item"); /*Peek*/
         System.out.println("4) List all items");
         System.out.println("5) Search item by name");
         System.out.println("6) Exit");
