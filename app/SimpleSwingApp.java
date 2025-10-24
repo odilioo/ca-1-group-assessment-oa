@@ -51,19 +51,85 @@ public class SimpleSwingApp extends JFrame {
     }
 
     private void onAdd(ActionEvent e) {
-        String name = JOptionPane.showInputDialog(this, "Enter food name:");
-        if (name != null && !name.trim().isEmpty()) {
-            String weightStr = JOptionPane.showInputDialog(this, "Enter weight (grams):");
-            if (weightStr == null || weightStr.trim().isEmpty()) return;
-            try {
-                double weight = Double.parseDouble(weightStr);
-                FoodItem item = new FoodItem(name, weight, LocalDate.now().plusDays(5));
-                storage.enqueue(item);
-                append("Added: " + item);
-            } catch (NumberFormatException ex) {
-                append("Invalid weight. Please enter a numeric value.");
+        try {
+            // Define strictly allowed fast-food items (Pizza added)
+            String[] validItems = {"Burger", "Fries", "Drink", "Salad", "Wrap", "Nuggets", "Hotdog", "Pizza"};
+            String name = JOptionPane.showInputDialog(this, "Enter food item (Burger, Fries, Drink, etc.):");
+
+            if (name == null || name.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Food name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            name = name.trim();
+
+            // Validate if the item is one of the allowed fast-food items
+            boolean isValid = false;
+            for (String valid : validItems) {
+                if (valid.equalsIgnoreCase(name)) {
+                    isValid = true;
+                    name = valid; // normalize capitalization
+                    break;
+                }
+            }
+
+            if (!isValid) {
+                JOptionPane.showMessageDialog(this,
+                        "❌ Invalid item. Allowed items are:\n" + String.join(", ", validItems),
+                        "Invalid Item", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String weightStr = JOptionPane.showInputDialog(this, "Enter weight (grams):");
+            if (weightStr == null || weightStr.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Weight cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            double weight;
+            try {
+                weight = Double.parseDouble(weightStr.trim());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid weight value. Please enter a number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (weight <= 0) {
+                JOptionPane.showMessageDialog(this, "❌ Invalid weight. It must be greater than zero.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Check if storage is full
+            if (storage.isFull()) {
+                JOptionPane.showMessageDialog(this, "⚠️ Storage is full. Cannot add more items.", "Storage Full", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Auto-assign best-before date based on food type
+            LocalDate bestBefore;
+            if (name.equalsIgnoreCase("Burger") || name.equalsIgnoreCase("Fries") || name.equalsIgnoreCase("Hotdog")) {
+                bestBefore = LocalDate.now().plusDays(1);
+            } else if (name.equalsIgnoreCase("Drink") || name.equalsIgnoreCase("Salad")) {
+                bestBefore = LocalDate.now().plusDays(3);
+            } else {
+                bestBefore = LocalDate.now().plusDays(5);
+            }
+
+            FoodItem item = new FoodItem(name, weight, bestBefore);
+            storage.enqueue(item);
+
+            append("Added: " + item);
+            JOptionPane.showMessageDialog(this,
+                    "✅ Item added successfully!\n" +
+                    "Item: " + name + "\nWeight: " + weight + "g\nBest before: " + bestBefore,
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalStateException ex) {
+            JOptionPane.showMessageDialog(this, "Storage is full. Cannot add more items.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Unexpected error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
