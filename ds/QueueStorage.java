@@ -16,7 +16,7 @@ public class QueueStorage<T> implements StorageInterface<T> {
 
     public QueueStorage(int capacity) {
         if (capacity <= 0)
-            throw new IllegalArgumentException("capacity must be greater than 0");
+            throw new IllegalArgumentException("Capacity must be greater than 0");
         this.capacity = capacity;
         this.queue = new LinkedList<>();
     }
@@ -28,7 +28,7 @@ public class QueueStorage<T> implements StorageInterface<T> {
     @Override
     public synchronized void enqueue(T item) {
         if (item == null)
-            throw new IllegalArgumentException("item cannot be null");
+            throw new IllegalArgumentException("Item cannot be null");
         if (isFull())
             throw new IllegalStateException("Storage is full");
         queue.add(item);

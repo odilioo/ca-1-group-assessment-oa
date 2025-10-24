@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
- * Help to represents a food item with a production date and a best-before date.
+ * Help represents a food item with a production date and a best before date.
  * The difference between production and best before must not exceed 14 days.
  */
 public class FoodItem implements Comparable<FoodItem> {
