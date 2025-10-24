@@ -17,7 +17,7 @@ public class MainApp {
         new MainApp().run();
     }
     private void run() {
-        System.out.println("=== FastFoodFIFO - Console ===");
+        System.out.println("=== FastFoodFIFO - Menu ===");
         boolean running = true;
         while (running) {
             printMenu();
@@ -36,10 +36,10 @@ public class MainApp {
                     handleList();
                     break;
                 case "5":
-                    running = false;
+                    handleSearch();
                     break;
                 case "6":
-                    handleSearch();
+                    running = false;
                     break;
                 default:
                     System.out.println("Invalid option. Try again.");
@@ -50,12 +50,12 @@ public class MainApp {
 
     private void printMenu() {
         System.out.println();
-        System.out.println("1) Add item (enqueue)");
-        System.out.println("2) Remove item (dequeue)");
-        System.out.println("3) View next item (peek)");
+        System.out.println("1) Add item (enqueue)"); /*Enqueue*/
+        System.out.println("2) Remove item (dequeue)"); /*Dequeue*/
+        System.out.println("3) View next item (peek)"); /*Peek*/
         System.out.println("4) List all items");
-        System.out.println("5) Exit");
-        System.out.println("6) Search item by name");
+        System.out.println("5) Search item by name");
+        System.out.println("6) Exit");
         System.out.print("Choose: ");
     }
 
@@ -77,7 +77,7 @@ public class MainApp {
             }
             LocalDate prod = LocalDate.now();
             System.out.println("Production date automatically set to: " + prod);
-            System.out.print("Best-before date (YYYY-MM-DD): ");
+            System.out.print("Best before date (YYYY-MM-DD): ");
             LocalDate best = LocalDate.parse(scanner.nextLine().trim());
             FoodItem item = new FoodItem(name, weight, best);
             storage.enqueue(item);
