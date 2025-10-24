@@ -1,4 +1,4 @@
-package ds;
+package model.ds;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -13,8 +13,7 @@ public class QueueStorage<T> implements StorageInterface<T> {
     private final int capacity;
 
     public QueueStorage(int capacity) {
-        if (capacity <= 0)
-            throw new IllegalArgumentException("Capacity must be greater than 0");
+        if (capacity <= 0) throw new IllegalArgumentException("Capacity must be > 0");
         this.capacity = capacity;
         this.queue = new LinkedList<>();
     }
@@ -25,26 +24,22 @@ public class QueueStorage<T> implements StorageInterface<T> {
 
     @Override
     public synchronized void enqueue(T item) {
-        if (item == null)
-            throw new IllegalArgumentException("Item cannot be null");
-        if (isFull())
-            throw new IllegalStateException("Storage is full");
+        if (item == null) throw new IllegalArgumentException("Item cannot be null");
+        if (isFull()) throw new IllegalStateException("Storage is full");
         queue.add(item);
     }
 
     @Override
     public synchronized T dequeue() {
         T it = queue.poll();
-        if (it == null)
-            throw new NoSuchElementException("Storage is empty");
+        if (it == null) throw new NoSuchElementException("Storage is empty");
         return it;
     }
 
     @Override
     public synchronized T peek() {
         T it = queue.peek();
-        if (it == null)
-            throw new NoSuchElementException("Storage is empty");
+        if (it == null) throw new NoSuchElementException("Storage is empty");
         return it;
     }
 
@@ -65,12 +60,6 @@ public class QueueStorage<T> implements StorageInterface<T> {
 
     @Override
     public String toString() {
-        return queue.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining("\n"));
-    }
-
-    public synchronized java.util.Queue<T> getAll() {
-        return new java.util.LinkedList<>(queue);
+        return queue.stream().map(Object::toString).collect(Collectors.joining("\n"));
     }
 }

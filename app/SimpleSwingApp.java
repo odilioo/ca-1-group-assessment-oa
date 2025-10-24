@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;        // For empty queue handling
 
 import ds.StorageInterface;         // Your interface for storage
 import ds.QueueStorage;             // Your queue implementation
-import model.FoodItem;              // Your food item class
+import model.ds.FoodItem;             // Your food item class
 
 public class SimpleSwingApp extends JFrame {
 
@@ -55,10 +55,15 @@ public class SimpleSwingApp extends JFrame {
         if (name != null && !name.trim().isEmpty()) {
             String weightStr = JOptionPane.showInputDialog(this, "Enter weight (grams):");
             if (weightStr == null || weightStr.trim().isEmpty()) return;
-            double weight = Double.parseDouble(weightStr);
-            FoodItem item = new FoodItem(name, weight, LocalDate.now(), LocalDate.now().plusDays(5));
-            storage.enqueue(item);
-            append("Added: " + item);
+            try {
+                double weight = Double.parseDouble(weightStr);
+                FoodItem item = new FoodItem(name, weight, LocalDate.now().plusDays(5));
+                storage.enqueue(item);
+                append("Added: " + item);
+            } catch (NumberFormatException ex) {
+                append("Invalid weight. Please enter a numeric value.");
+                return;
+            }
         }
     }
 
@@ -105,13 +110,14 @@ public class SimpleSwingApp extends JFrame {
         }
         if (found) {
             append("Search results:\n" + results);
+            JOptionPane.showMessageDialog(this, "Results found:\n" + results);
         } else {
             append("No matching food found for: " + searchName);
+            JOptionPane.showMessageDialog(this, "No matching food found for: " + searchName);
         }
     }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(SimpleSwingApp::new);
     }
-}
 }

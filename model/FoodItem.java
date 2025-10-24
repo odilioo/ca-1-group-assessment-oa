@@ -1,7 +1,14 @@
-/**
- * Help represents a food item with a production date and a best before date.
+package model.ds;
+/****
+ * Help to represents a food item with a production date and a best-before date.
  * The difference between production and best before must not exceed 14 days.
  */
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
+
 public class FoodItem implements Comparable<FoodItem> {
     private final String name;
     private final double weight;
@@ -9,13 +16,14 @@ public class FoodItem implements Comparable<FoodItem> {
     private final LocalDate bestBeforeDate;
     private final LocalDateTime timePlaced;
 
-    public FoodItem(String name, double weight, LocalDate productionDate, LocalDate bestBeforeDate) {
+    public FoodItem(String name, double weight, LocalDate bestBeforeDate) {
         Objects.requireNonNull(name, "Name cannot be null");
-        Objects.requireNonNull(productionDate, "Production date cannot be null");
         Objects.requireNonNull(bestBeforeDate, "Best before date cannot be null");
         if (weight <= 0) {
             throw new IllegalArgumentException("Weight must be greater than 0");
         }
+
+        LocalDate productionDate = LocalDate.now();
 
         long days = ChronoUnit.DAYS.between(productionDate, bestBeforeDate);
         if (days < 0) {

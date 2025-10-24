@@ -2,7 +2,7 @@ package app;
 
 import ds.QueueStorage;
 import ds.StorageInterface;
-import model.FoodItem;
+import model.ds.FoodItem;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -17,7 +17,7 @@ public class MainApp {
         new MainApp().run();
     }
     private void run() {
-        System.out.println("=== FastFoodFIFO - Menu ===");
+        System.out.println("=== FastFoodFIFO - Console ===");
         boolean running = true;
         while (running) {
             printMenu();
@@ -50,9 +50,9 @@ public class MainApp {
 
     private void printMenu() {
         System.out.println();
-        System.out.println("1) Add item"); /*Enqueue*/
-        System.out.println("2) Remove item"); /*Dequeue*/
-        System.out.println("3) View next item"); /*Peek*/
+        System.out.println("1) Add item (enqueue)");
+        System.out.println("2) Remove item (dequeue)");
+        System.out.println("3) View next item (peek)");
         System.out.println("4) List all items");
         System.out.println("5) Exit");
         System.out.println("6) Search item by name");
@@ -68,12 +68,18 @@ public class MainApp {
             System.out.print("Item name: ");
             String name = scanner.nextLine().trim();
             System.out.print("Item weight (grams): ");
-            double weight = Double.parseDouble(scanner.nextLine().trim());
-            System.out.print("Production date (YYYY-MM-DD): ");
-            LocalDate prod = LocalDate.parse(scanner.nextLine().trim());
-            System.out.print("Best before date (YYYY-MM-DD): ");
+            double weight;
+            try {
+                weight = Double.parseDouble(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid weight. Please enter a number.");
+                return;
+            }
+            LocalDate prod = LocalDate.now();
+            System.out.println("Production date automatically set to: " + prod);
+            System.out.print("Best-before date (YYYY-MM-DD): ");
             LocalDate best = LocalDate.parse(scanner.nextLine().trim());
-            FoodItem item = new FoodItem(name, weight, prod, best);
+            FoodItem item = new FoodItem(name, weight, best);
             storage.enqueue(item);
             System.out.println("Added: " + item);
         } catch (DateTimeParseException e) {
@@ -106,7 +112,7 @@ public class MainApp {
             System.out.println("No items in storage.");
             return;
         }
-        System.out.println("Items in storage: ");
+        System.out.println("Items in storage:");
         System.out.println(storage.toString());
     }
 
@@ -124,6 +130,4 @@ public class MainApp {
             System.out.println("No matching food found.");
         }
     }
-}
-
 }
