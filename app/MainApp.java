@@ -38,6 +38,9 @@ public class MainApp {
                 case "5":
                     running = false;
                     break;
+                case "6":
+                    handleSearch();
+                    break;
                 default:
                     System.out.println("Invalid option. Try again.");
             }
@@ -52,6 +55,7 @@ public class MainApp {
         System.out.println("3) View next item (peek)");
         System.out.println("4) List all items");
         System.out.println("5) Exit");
+        System.out.println("6) Search item by name");
         System.out.print("Choose: ");
     }
 
@@ -63,11 +67,13 @@ public class MainApp {
             }
             System.out.print("Item name: ");
             String name = scanner.nextLine().trim();
+            System.out.print("Item weight (grams): ");
+            double weight = Double.parseDouble(scanner.nextLine().trim());
             System.out.print("Production date (YYYY-MM-DD): ");
             LocalDate prod = LocalDate.parse(scanner.nextLine().trim());
             System.out.print("Best-before date (YYYY-MM-DD): ");
             LocalDate best = LocalDate.parse(scanner.nextLine().trim());
-            FoodItem item = new FoodItem(name, prod, best);
+            FoodItem item = new FoodItem(name, weight, prod, best);
             storage.enqueue(item);
             System.out.println("Added: " + item);
         } catch (DateTimeParseException e) {
@@ -102,5 +108,20 @@ public class MainApp {
         }
         System.out.println("Items in storage:");
         System.out.println(storage.toString());
+    }
+
+    private void handleSearch() {
+        System.out.print("Enter food name to search: ");
+        String searchName = scanner.nextLine().trim().toLowerCase();
+        boolean found = false;
+        for (FoodItem item : ((ds.QueueStorage<FoodItem>) storage).getAll()) {
+            if (item.getName().toLowerCase().contains(searchName)) {
+                System.out.println(item);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No matching food found.");
+        }
     }
 }

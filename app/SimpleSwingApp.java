@@ -31,16 +31,19 @@ public class SimpleSwingApp extends JFrame {
         JButton removeBtn = new JButton("Remove");
         JButton peekBtn = new JButton("Peek");
         JButton listBtn = new JButton("List");
+        JButton searchBtn = new JButton("Search");
 
         addBtn.addActionListener(this::onAdd);
         removeBtn.addActionListener(this::onRemove);
         peekBtn.addActionListener(this::onPeek);
         listBtn.addActionListener(this::onList);
+        searchBtn.addActionListener(this::onSearch);
 
         add(addBtn);
         add(removeBtn);
         add(peekBtn);
         add(listBtn);
+        add(searchBtn);
         add(new JScrollPane(outputArea));
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -50,7 +53,10 @@ public class SimpleSwingApp extends JFrame {
     private void onAdd(ActionEvent e) {
         String name = JOptionPane.showInputDialog(this, "Enter food name:");
         if (name != null && !name.trim().isEmpty()) {
-            FoodItem item = new FoodItem(name, LocalDate.now(), LocalDate.now().plusDays(5));
+            String weightStr = JOptionPane.showInputDialog(this, "Enter weight (grams):");
+            if (weightStr == null || weightStr.trim().isEmpty()) return;
+            double weight = Double.parseDouble(weightStr);
+            FoodItem item = new FoodItem(name, weight, LocalDate.now(), LocalDate.now().plusDays(5));
             storage.enqueue(item);
             append("Added: " + item);
         }
@@ -84,6 +90,24 @@ public class SimpleSwingApp extends JFrame {
 
     private void append(String s) {
         outputArea.append(s + "\n");
+    }
+
+    private void onSearch(ActionEvent e) {
+        String searchName = JOptionPane.showInputDialog(this, "Enter food name to search:");
+        if (searchName == null || searchName.trim().isEmpty()) return;
+        boolean found = false;
+        StringBuilder results = new StringBuilder();
+        for (FoodItem item : ((ds.QueueStorage<FoodItem>) storage).getAll()) {
+            if (item.getName().toLowerCase().contains(searchName.toLowerCase())) {
+                results.append(item).append("\n");
+                found = true;
+            }
+        }
+        if (found) {
+            append("Search results:\n" + results);
+        } else {
+            append("No matching food found for: " + searchName);
+        }
     }
 
     public static void main(String[] args) {

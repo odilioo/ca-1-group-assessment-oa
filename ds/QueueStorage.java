@@ -71,4 +71,8 @@ public class QueueStorage<T> implements StorageInterface<T> {
                 .map(Object::toString)
                 .collect(Collectors.joining("\n"));
     }
+
+    public synchronized java.util.Queue<T> getAll() {
+        return new java.util.LinkedList<>(queue);
+    }
 }
