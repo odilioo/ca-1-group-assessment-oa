@@ -1,10 +1,3 @@
-package model;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Objects;
-
 /**
  * Help to represents a food item with a production date and a best-before date.
  * The difference between production and best before must not exceed 14 days.
