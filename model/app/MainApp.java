@@ -1,7 +1,7 @@
-package app;
+package model.app;
 
-import ds.QueueStorage;
-import ds.StorageInterface;
+import model.ds.QueueStorage;
+import model.ds.StorageInterface;
 import model.FoodItem;
 
 import java.time.LocalDate;

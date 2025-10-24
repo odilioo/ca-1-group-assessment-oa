@@ -1,4 +1,4 @@
-package ds;
+package model.ds;
 
 import model.FoodItem;
 

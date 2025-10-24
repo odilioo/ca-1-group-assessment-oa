@@ -1,0 +1,23 @@
+﻿ # Git ignore rules 
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/shelf/
+/workspace.xml
+/httpRequests/
+/dataSources/
+/dataSources.local.xml
+
+# Java build and output folders
+/out/
+/build/
+/target/
+*.class
+*.log
+*.tmp
+*.bak
+
+# OS specific
+Thumbs.db
+.DS_Store
+Desktop.ini
