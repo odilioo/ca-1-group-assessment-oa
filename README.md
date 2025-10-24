@@ -76,10 +76,7 @@ Added: FoodItem{name='Burger', produced=2025-10-24, bestBefore=2025-10-30}
 - **Exception handling**
 - **Code reusability** with interfaces
 
-<<<<<<< HEAD
 
-l code, testing, and debugging decisions were made by the project authors (Odilio de Oliveira and Aline Aparecida).
-=======
 ## 🧠 Time Complexity
 | Operation | Complexity | Explanation |
 |------------|-------------|-------------|
@@ -88,15 +85,14 @@ l code, testing, and debugging decisions were made by the project authors (Odili
 | Peek | O(1) | Access front element |
 | Search | O(n) | Iterate through all elements |
 | List | O(n) | Traverse all elements |
->>>>>>> 077dae4 (improved README and AI usage note)
+
 
 ## 👥 Authors
 - **Odilio de Oliveira**
 - **Aline Aparecida**
 
-<<<<<<< HEAD
-=======
+
 ## 🤖 AI Usage Declaration
 AI tools (e.g., ChatGPT) were used to assist with code explanations, debugging, and documentation structure.  
 All final code, design, and testing were completed by the authors.
->>>>>>> 077dae4 (improved README and AI usage note)
+
