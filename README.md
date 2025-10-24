@@ -44,11 +44,7 @@ javac app/MainApp.java
 java app.MainApp
 ```
 
-### GUI App
-```bash
-javac app/SimpleSwingApp.java
-java app.SimpleSwingApp
-```
+
 
 ## 📦 Example Usage (Console)
 ```
